@@ -1,13 +1,14 @@
 <?php
 $dbserver = "localhost";
-$dbname = "buku";
 $dbuser = "root";
-$dbpassword = "";
-$dsn = "mysql:host = {$dbserver};dbname={$dbname}";
+$dbpass = "";
+$dbname = "buku";
+$dsn = "mysql:host=$dbserver;dbname=$dbname";
 
 $koneksi = null;
 try {
-    $connection = new PDO($dsn, $dbuser, $dbpassword);
+    $koneksi = new PDO($dsn, $dbuser, $dbpass);
+    $koneksi->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
-    die("Koneksi Gagal: " . $e->getMessage());
+    die("Koneksi gagal: " . $e->getMessage());
 }

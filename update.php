@@ -1,7 +1,8 @@
 <?php
-include './koneksi.php';
 
-if ($_POST){
+include "koneksi.php";
+
+if($_POST){
     $isbn = $_POST['isbn'];
     $judul = $_POST['judul'];
     $pengarang = $_POST['pengarang'];
@@ -9,11 +10,11 @@ if ($_POST){
     $tanggal = $_POST['tanggal'];
     $abstrak = $_POST['abstrak'];
 
-    $statement = $koneksi->prepare("UPDATE `buku` SET `judul`='$judul',`pengarang`='$pengarang',`jumlah`='$jumlah',`tanggal`='$tanggal',`abstrak`='$abstrak' WHERE `isbn` = $isbn");
-    $statement->execute();
+    $statement = $koneksi->prepare("UPDATE buku SET judul = $judul , pengarang = $pengarang , jumlah = $jumlah , tanggal = $tanggal , abstrak = $abstrak WHERE isbn = $isbn");
+    $result = $statement->execute();
 
-    $response['message'] = "Update sudah berhasil";
-    $response['data'] = [
+    $response['message'] = "Data berhasil diubah";
+    $response['data']=[
         'isbn' => $isbn,
         'judul' => $judul,
         'pengarang' => $pengarang,
@@ -21,12 +22,11 @@ if ($_POST){
         'tanggal' => $tanggal,
         'abstrak' => $abstrak
     ];
-
+    
     $json = json_encode($response, JSON_PRETTY_PRINT);
     echo $json;
-
-} else {
-    $response['message'] = "Gagal";
+}else{
+    $response['message'] = "Data gagal diubah";
     $json = json_encode($response, JSON_PRETTY_PRINT);
     echo $json;
 }
